@@ -1,0 +1,51 @@
+<pre class="prettyprint linenums">&lt;html&gt;&lt;head&gt;&lt;title&gt;JavaScript&lt;/title&gt;&lt;style&gt; 
+    textarea {
+        width: 400px;
+        height:50px;
+    }
+    .red{
+        color:red;
+    }
+&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;div&gt;
+    &lt;textarea class="txtLimits"&gt;&lt;/textarea&gt;
+    &lt;div class="output"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+    const output = document.querySelector(".output");
+    const txt = document.querySelector("textarea");
+    /*
+    txt.addEventListener("change",textCounter);
+    txt.addEventListener("keyup",textCounter);
+    txt.addEventListener("keydown",textCounter);
+    */
+    ["keyup","keydown","change"].forEach(function(e){
+        txt.addEventListener(e,textCounter);
+    })
+    
+    const maxLength = 20;
+    const warnLength = 7;
+    
+    function textCounter(e){
+        let count = txt.value.length;
+        console.log(count);
+        if(count &gt; maxLength){
+            txt.value = txt.value.substring(0,maxLength);
+        }
+        if(count &gt; warnLength){
+            output.classList.add("red");
+        }else{
+            output.classList.remove("red");
+        }
+        output.innerHTML = (maxLength-count) + " characters left";
+        
+    }
+    
+
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>

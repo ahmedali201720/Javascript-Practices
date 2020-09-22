@@ -1,0 +1,23 @@
+<pre class="prettyprint linenums">&lt;html&gt;
+
+&lt;head&gt;
+    &lt;title&gt;JavaScript&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div class="output"&gt;&lt;/div&gt;
+    Name : &lt;input type="text" value="Laurence"&gt;
+    &lt;button type="button"&gt;Message&lt;/button&gt;
+    &lt;script &gt;
+    const output = document.querySelector(".output");
+    const button = document.querySelector("button");
+    const myName = document.querySelector("input");
+    console.log(button);
+    button.addEventListener("click",showMessage);
+    function showMessage(){
+        output.innerHTML = "&lt;h1&gt;Hello welcome, "+myName.value+"&lt;/h1&gt;";
+    }
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>

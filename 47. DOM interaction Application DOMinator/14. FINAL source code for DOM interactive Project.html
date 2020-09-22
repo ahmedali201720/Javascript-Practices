@@ -1,0 +1,112 @@
+<pre class="prettyprint linenums">&lt;html&gt;
+
+&lt;head&gt;
+    &lt;style&gt;
+        .bigger {
+            font-size: 3em;
+            font-family: cursive;
+        }
+        
+        .padded {
+            padding: 20px;
+        }
+        
+        .borderAdd {
+            border: 3px dotted blue;
+        }
+        
+        #main &gt;* {
+            border: 1px solid #ddd;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt; Add Element:
+    &lt;select name="addElement"&gt;&lt;/select&gt;
+    &lt;button name="adder"&gt;Add&lt;/button&gt;
+    &lt;br&gt; Select Element
+    &lt;select name="eleMaker"&gt;&lt;/select&gt;
+    &lt;br&gt; Inner Text :
+    &lt;input type="text" name="outputText" value="Laurence"&gt;
+    &lt;br&gt; Background :
+    &lt;input type="color" name="bg" value="#ffffff"&gt;
+    &lt;br&gt; Text Color:
+    &lt;input type="color" name="txt" value="#000000"&gt;
+    &lt;br&gt; Toggle Classes
+    &lt;select name="classes"&gt;&lt;/select&gt;
+    &lt;br&gt;
+    &lt;button class="btn"&gt;Update&lt;/button&gt;
+    &lt;div id="main"&gt;
+        &lt;div&gt;Hello World&lt;/div&gt;
+        &lt;p&gt;Laurence&lt;/p&gt; &lt;span&gt;JavaScript&lt;/span&gt; &lt;/div&gt;
+    &lt;script&gt;
+        const classArray = ["padded", "bigger", "borderAdd"];
+        const elementArray = ["div", "p", "span"];
+        const selClasses = document.querySelector("select[name=classes]");
+        const eleMaker = document.querySelector("select[name=eleMaker]");
+        const addElement = document.querySelector("select[name=addElement]");
+        const adder = document.querySelector("button[name=adder]");
+        const selElement = document.querySelector("div");
+        const seInput = document.querySelector("input[name=outputText]");
+        const seBg = document.querySelector("input[name=bg]");
+        const seTxt = document.querySelector("input[name=txt]");
+        const btn = document.querySelector(".btn");
+        const main = document.querySelector("#main");
+        let nodeLister;
+        adder.addEventListener("click", function () {
+            let temp = document.createElement(addElement.value);
+            temp.textContent = addElement.value;
+            temp.addEventListener("click", removeEle);
+            main.appendChild(temp);
+            dropDownBuilder();
+        })
+        btn.addEventListener("click", function (event) {
+            let tempElement = nodeLister[eleMaker.value];
+            tempElement.textContent = seInput.value;
+            tempElement.style.backgroundColor = seBg.value;
+            tempElement.style.color = seTxt.value;
+            tempElement.classList.toggle(selClasses.value);
+        })
+        document.addEventListener("DOMContentLoaded", function () {
+            classArray.forEach(function (item) {
+                let opt = document.createElement("option");
+                opt.value = item;
+                opt.innerHTML = item;
+                selClasses.appendChild(opt);
+            })
+            elementArray.forEach(function (item) {
+                let opt = document.createElement("option");
+                opt.value = item;
+                opt.innerHTML = item;
+                addElement.appendChild(opt);
+            })
+            nodeLister = document.querySelectorAll("#main &gt;*");
+            removerElements();
+            dropDownBuilder();
+        })
+
+        function removerElements() {
+            nodeLister.forEach(function (item) {
+                item.addEventListener("click", removeEle);
+            })
+        }
+
+        function removeEle() {
+            main.removeChild(this);
+            dropDownBuilder();
+        }
+
+        function dropDownBuilder() {
+            eleMaker.innerHTML = "";
+            nodeLister = document.querySelectorAll("#main &gt;*");
+            nodeLister.forEach(function (item, index) {
+                let opt = document.createElement("option");
+                opt.value = index;
+                opt.innerHTML = item.tagName;
+                eleMaker.appendChild(opt);
+            })
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>

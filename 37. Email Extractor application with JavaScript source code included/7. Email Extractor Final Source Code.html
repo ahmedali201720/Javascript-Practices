@@ -1,0 +1,43 @@
+<pre class="prettyprint linenums">&lt;html&gt;
+
+&lt;head&gt;
+    &lt;title&gt;JavaScript&lt;/title&gt;
+    &lt;style&gt;
+
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt; Paste Text :
+    &lt;br&gt;
+    &lt;textarea name="txtarea" rows="12" cols="50"&gt;heloo email world real@email.com asddsa jldkjjlkj jkljl sdajlkdasjdsa kljadsj dklja real1@email.com real.test@email.com helllo hkjdshsdkjh jkh real-time@email.com &lt;/textarea&gt;
+    &lt;br&gt;
+    &lt;button type="button"&gt;Get Emails&lt;/button&gt;
+    &lt;br&gt; &lt;span class="counter"&gt; &lt;/span&gt; Emails in text:
+    &lt;br&gt;
+    &lt;textarea name="output" rows="12" cols="50"&gt;&lt;/textarea&gt;
+    &lt;script&gt;
+        const rawTxt = document.querySelector("textarea[name=txtarea]");
+        const finTxt = document.querySelector("textarea[name=output]");
+        const btn = document.querySelector("button");
+        const counter = document.querySelector(".counter");
+        btn.addEventListener("click", function () {
+            let temp = rawTxt.value;
+            let exp = /([A-Za-z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
+            let emailData = temp.match(exp);
+            let holder = [];
+            for (let x = 0; x &lt; emailData.length; x++) {
+                if (holder.indexOf(emailData[x]) == -1) {
+                    holder.push(emailData[x]);
+                }
+            }
+            let tempHolder = holder.join(";");
+            counter.innerText = "Emails Found " + holder.length;
+            finTxt.innerText = tempHolder;
+        })
+        finTxt.addEventListener("click", function () {
+            this.select();
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>

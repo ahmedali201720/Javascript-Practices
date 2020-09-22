@@ -1,0 +1,26 @@
+<html><head><title>JavaScript</title>
+    <style>
+    </style>
+</head>
+<body>
+    <input type="text" id="addItem">
+    <input type="button" id="addNew" value="Add Item">
+    <div class="output"></div>
+
+    <script>
+    let myList = ["bananas","milk","apples","eggs","cake"];
+    const btnAdd = document.querySelector("#addNew");
+    btnAdd.addEventListener("click",function(){
+        console.log("clicked");
+    })
+    
+    window.onload = build;
+    function build(){
+        console.log("ready");
+    }
+    
+    
+    
+    </script>
+</body>
+</html>

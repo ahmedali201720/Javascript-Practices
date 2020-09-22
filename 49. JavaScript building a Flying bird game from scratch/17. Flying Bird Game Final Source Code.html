@@ -1,0 +1,246 @@
+<pre class="prettyprint linenums">&lt;html&gt;
+
+&lt;head&gt;
+    &lt;title&gt;JavaScript&lt;/title&gt;
+    &lt;style&gt;
+        .hide {
+            display: none;
+        }
+        
+        .gameArea {
+            background-color: skyblue;
+            width: 100%;
+            height: 100%;
+            margin: auto;
+        }
+        
+        .score {
+            position: absolute;
+            width: 100%;
+            z-index: 100;
+            background-color: black;
+            color: white;
+            text-align: center;
+            height: 50px;
+            font-size: 1.5em;
+            font-family: fantasy;
+        }
+        
+        .startScreen {
+            position: absolute;
+            background-color: red;
+            left: 25%;
+            top: 100px;
+            color: white;
+            width: 50%;
+            padding: 15px;
+            border: 1px solid black;
+            text-align: center;
+        }
+        
+        .bird {
+            position: absolute;
+            top: 100px;
+            left: 50px;
+            width: 50px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 1.5em;
+            background-image: url(bird.png);
+            background-size: cover;
+        }
+        
+        .wing {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            background-color: gold;
+            width: 25px;
+            height: 12px;
+            border-radius: 5px;
+        }
+        
+        .gameMessage {
+            position: absolute;
+            top: 10%;
+            text-align: center;
+            left: 20%;
+            width: 60%;
+            background-color: aliceblue;
+            font-size: 2em;
+        }
+        
+        .pipe {
+            width: 100px;
+            position: absolute;
+            text-align: center;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div class="score"&gt;&lt;/div&gt;
+    &lt;div class="game"&gt;
+        &lt;div class="gameArea"&gt;&lt;/div&gt;
+        &lt;div class="startScreen"&gt;Press Start&lt;/div&gt; &lt;span class="gameMessage hide"&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;script&gt;
+        const score = document.querySelector(".score");
+        const startScreen = document.querySelector(".startScreen");
+        const gameArea = document.querySelector(".gameArea");
+        const gameMessage = document.querySelector(".gameMessage");
+        gameMessage.addEventListener("click", start);
+        startScreen.addEventListener("click", start);
+        document.addEventListener("keydown", pressOn);
+        document.addEventListener("keyup", pressOff);
+        let keys = {};
+        let player = {};
+
+        function start() {
+            player.speed = 2;
+            player.score = 0;
+            player.inplay = true;
+            gameArea.innerHTML = "";
+            gameMessage.classList.add("hide");
+            startScreen.classList.add("hide");
+            let bird = document.createElement("div");
+            bird.setAttribute("class", "bird");
+            let wing = document.createElement("span");
+            wing.setAttribute("class", "wing");
+            wing.pos = 15;
+            wing.style.top = wing.pos + "px";
+            bird.appendChild(wing);
+            gameArea.appendChild(bird);
+            player.x = bird.offsetLeft;
+            player.y = bird.offsetTop;
+            player.pipe = 0;
+            let spacing = 500;
+            let howMany = Math.floor((gameArea.offsetWidth) / spacing);
+            ///console.log(howMany);
+            for (let x = 0; x &lt; howMany; x++) {
+                buildPipes(player.pipe * spacing);
+            }
+            window.requestAnimationFrame(playGame);
+        }
+
+        function buildPipes(startPos) {
+            let totalHeight = gameArea.offsetHeight;
+            let totalWidth = gameArea.offsetWidth;
+            player.pipe++;
+            let pipeColor = clr();
+            let pipe1 = document.createElement("div");
+            pipe1.start = startPos + totalWidth;
+            pipe1.classList.add("pipe");
+            pipe1.innerHTML = "&lt;br&gt;" + player.pipe;
+            pipe1.height = Math.floor(Math.random() * 350);
+            pipe1.style.height = pipe1.height + "px";
+            pipe1.style.left = pipe1.start + "px";
+            pipe1.style.top = "0px";
+            pipe1.x = pipe1.start;
+            pipe1.id = player.pipe;
+            pipe1.style.backgroundColor = pipeColor ;
+            gameArea.appendChild(pipe1);
+            let pipeSpace = Math.floor(Math.random() * 250) + 150;
+            let pipe2 = document.createElement("div");
+            pipe2.start = pipe1.start;
+            pipe2.classList.add("pipe");
+            pipe2.innerHTML = "&lt;br&gt;" + player.pipe;
+            pipe2.style.height = totalHeight - pipe1.height - pipeSpace + "px";
+            pipe2.style.left = pipe1.start + "px";
+            pipe2.style.bottom = "0px";
+            pipe2.x = pipe1.start;
+            pipe2.id = player.pipe;
+            pipe2.style.backgroundColor = pipeColor ;
+            gameArea.appendChild(pipe2);
+        }
+
+        function clr(){
+            return "#"+Math.random().toString(16).substr(-6);
+        }
+
+        function movePipes(bird) {
+            let lines = document.querySelectorAll(".pipe");
+            let counter = 0; //counts pips to remove
+            lines.forEach(function (item) {
+                item.x -= player.speed;
+                item.style.left = item.x + "px";
+                if (item.x &lt; 0) {
+                    item.parentElement.removeChild(item);
+                    counter++;
+                }
+                if (isCollide(item, bird)) {
+                    playGameOver(bird);
+                }
+            })
+            counter = counter / 2;
+            for (let x = 0; x &lt; counter; x++) {
+                buildPipes(0);
+            }
+        }
+
+        function isCollide(a, b) {
+            let aRect = a.getBoundingClientRect();
+            let bRect = b.getBoundingClientRect();
+            return !(
+                (aRect.bottom &lt; bRect.top) || (aRect.top &gt; bRect.bottom) || (aRect.right &lt; bRect.left) || (aRect.left &gt; bRect.right))
+        }
+
+        function playGame() {
+            if (player.inplay) {
+                let bird = document.querySelector(".bird");
+                let wing = document.querySelector(".wing");
+                movePipes(bird);
+                let move = false;
+                if (keys.ArrowLeft &amp;&amp; player.x &gt; 0) {
+                    player.x -= player.speed;
+                    move = true;
+                }
+                if (keys.ArrowRight &amp;&amp; player.x &lt; (gameArea.offsetWidth - 50)) {
+                    player.x += player.speed;
+                    move = true;
+                }
+                if ((keys.ArrowUp || keys.Space) &amp;&amp; player.y &gt; 0) {
+                    player.y -= (player.speed * 5);
+                    move = true;
+                }
+                if (keys.ArrowDown &amp;&amp; player.y &lt; (gameArea.offsetHeight - 50)) {
+                    player.y += player.speed;
+                    move = true;
+                }
+                if (move) {
+                    wing.pos = (wing.pos == 15) ? 25 : 15;
+                    wing.style.top = wing.pos + "px";
+                }
+                player.y += (player.speed * 2);
+                if (player.y &gt; gameArea.offsetHeight) {
+                    playGameOver(bird);
+                }
+                bird.style.top = player.y + "px";
+                bird.style.left = player.x + "px";
+                window.requestAnimationFrame(playGame);
+                player.score++;
+                score.innerText = "Score:" + player.score;
+            }
+        }
+
+        function playGameOver(bird) {
+            player.inplay = false;
+            gameMessage.classList.remove("hide");
+            bird.setAttribute("style", "transform:rotate(180deg)");
+            gameMessage.innerHTML = "Game Over&lt;br&gt;You scored " + player.score + "&lt;br&gt;Click here to start again";
+        }
+
+        function pressOn(e) {
+            e.preventDefault();
+            keys[e.code] = true;
+            ///console.log(keys);
+        }
+
+        function pressOff(e) {
+            e.preventDefault();
+            keys[e.code] = false;
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>

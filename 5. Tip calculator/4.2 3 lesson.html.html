@@ -1,0 +1,21 @@
+<html>
+
+<head>
+    <title>JavaScript</title>
+    <link rel="stylesheet" type="text/css" href="style.css"> </head>
+
+<body>
+    <div class="output"></div>
+    <input type="number" value="100">
+    <button type="button">Tip 1</button>
+    <button type="button">Tip 2</button>
+    <script>
+    //https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector
+    //https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll
+        const button = document.querySelectorAll("button");
+        console.log(button[1]);
+        button[1].innerHTML = "Hello";
+    </script>
+</body>
+
+</html>

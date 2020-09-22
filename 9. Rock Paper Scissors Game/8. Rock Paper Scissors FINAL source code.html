@@ -1,0 +1,87 @@
+<pre class="prettyprint linenums">&lt;html&gt;
+
+&lt;head&gt;
+    &lt;title&gt;JavaScript&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div class="score"&gt;&lt;/div&gt;
+    &lt;div class="message"&gt;&lt;/div&gt;
+    &lt;button type="button"&gt;Rock&lt;/button&gt;
+    &lt;button type="button"&gt;Paper&lt;/button&gt;
+    &lt;button type="button"&gt;Scissors&lt;/button&gt;
+    &lt;script&gt;
+        const message = document.querySelector(".message");
+        const score = document.querySelector(".score");
+        const buttons = document.querySelectorAll("button");
+        let winner = [0, 0];
+
+        for (let i = 0; i &lt; buttons.length; i++) {
+            buttons[i].addEventListener("click", playGame);
+        }
+
+        function playGame(e) {
+            let playerSelection = e.target.innerText;
+            let computerSelection = Math.random();
+            if (computerSelection &lt; 0.34) {
+                computerSelection = "Rock";
+            }
+            else if (computerSelection &lt;= 0.67) {
+                computerSelection = "Paper";
+            }
+            else {
+                computerSelection = "Scissors";
+            }
+            let result = checkWinner(playerSelection, computerSelection);
+            if (result == "Player") {
+                result += " wins!";
+                winner[0]++;
+            }
+            else if (result == "Computer") {
+                result += " wins!";
+                winner[1]++;
+            }
+            else {
+                result += " results in a tie match";
+            }
+            score.innerHTML = "&lt;small&gt;Player&lt;/small&gt;[" + winner[0] + "] &lt;small&gt;Computer&lt;/small&gt;[" + winner[1] + "]";
+            messager(playerSelection + " vs " + computerSelection + "&lt;br&gt;&lt;b&gt;" + result + "&lt;/b&gt;");
+        }
+
+        function messager(mes) {
+            message.innerHTML = mes;
+        }
+
+        function checkWinner(pl, co) {
+            if (pl === co) {
+                return "Draw";
+            }
+            if (pl === "Rock") {
+                if (co === "Paper") {
+                    return "Computer";
+                }
+                else {
+                    return "Player";
+                }
+            }
+            if (pl === "Paper") {
+                if (co === "Scissors") {
+                    return "Computer";
+                }
+                else {
+                    return "Player";
+                }
+            }
+            if (pl === "Scissors") {
+                if (co === "Rock") {
+                    return "Computer";
+                }
+                else {
+                    return "Player";
+                }
+            }
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>

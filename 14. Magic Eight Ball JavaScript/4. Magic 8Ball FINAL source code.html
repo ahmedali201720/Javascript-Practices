@@ -1,0 +1,25 @@
+<pre class="prettyprint linenums">&lt;html&gt;
+
+&lt;head&gt;
+    &lt;title&gt;JavaScript&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt; &lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div &gt;Ask your question?&lt;/div&gt;
+    &lt;input type="text" placeholder="question"&gt;
+    &lt;button type="button" &gt;Ask&lt;/button&gt;
+    &lt;div class="message"&gt;&lt;/div&gt;
+    &lt;script&gt;
+    const answerArray = ["It will work","Maybe maybe not","Probably Not","Highly Likely","I don't know"];
+    const message = document.querySelector(".message");
+    const question = document.querySelector("input");
+    const button = document.querySelector("button");
+    button.addEventListener("click",function(){
+        let res = Math.floor(Math.random()*answerArray.length);
+        message.innerText = question.value + " " + answerArray[res];
+        question.value = "";
+    })
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>

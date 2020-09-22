@@ -1,0 +1,25 @@
+<pre class="prettyprint linenums">&lt;html&gt;
+
+&lt;head&gt;
+    &lt;title&gt;JavaScript&lt;/title&gt;
+    &lt;link rel="stylesheet" type="text/css" href="style.css"&gt; &lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div class="output"&gt;&lt;/div&gt;
+    &lt;input type="number" value="100"&gt;
+    &lt;button type="button"&gt;Tip 1&lt;/button&gt;
+    &lt;script&gt;
+        const button = document.querySelector("button");
+        const output = document.querySelector(".output");
+        console.log(button);
+        button.addEventListener("click", function () {
+            const cost = document.querySelector("input");
+            console.log(cost.value * 0.15);
+            let tip = (cost.value * 0.15).toFixed(2);
+            let temp = `&lt;h1&gt;You should tip $${tip} on $${cost.value}&lt;/h1&gt;`;
+            output.innerHTML = temp;
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>

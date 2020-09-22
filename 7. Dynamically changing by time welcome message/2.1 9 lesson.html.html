@@ -1,0 +1,22 @@
+<html>
+
+<head>
+    <title>JavaScript</title>
+</head>
+
+<body>
+    <div class="output"></div>
+    <button type="button">Message</button>
+    <script >
+    const button = document.querySelector("button");
+    button.addEventListener("click",showOutput);
+    
+    function showOutput(){
+        const date = new Date();
+        console.log(date.getHours());
+        console.log("works");
+    }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<pre class="prettyprint linenums">&lt;html&gt;
+
+&lt;head&gt;
+    &lt;style&gt;
+        input {
+            display: block;
+            font-size: 1.5em;
+            width: 75%;
+        }
+        
+        button {
+            font-size: 1.5em;
+            padding: 5px;
+        }
+        
+        .cookie,
+        .output {
+            padding: 15px;
+            font-size: 1.2em;
+            font-family: fantasy;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;input type="text" name="cookieName" value="testName"&gt;
+    &lt;input type="text" name="cookieValue" value="test Value"&gt;
+    &lt;input type="date" name="cookieExpire"&gt;
+    &lt;button class="btn1"&gt;Set Cookie&lt;/button&gt;
+    &lt;button class="btn2"&gt;Get Cookie&lt;/button&gt;
+    &lt;button class="btn3"&gt;Delete Cookie&lt;/button&gt;
+    &lt;button class="btn4"&gt;All Cookies&lt;/button&gt;
+    &lt;div class="output"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        const output = document.querySelector(".output");
+        const btns = document.querySelectorAll("button");
+        const getVals = document.querySelectorAll("input");
+        btns.forEach(function (btn) {
+            btn.addEventListener("click", btnAction);
+        })
+        document.addEventListener("DOMContentLoaded", function () {
+            const now = new Date();
+            let nextWeek = (now.getDate() + 7);
+            let day = ("0" + nextWeek).slice(-2);
+            let month = ("0" + (now.getMonth() + 1)).slice(-2);
+            let year = now.getFullYear();
+            document.querySelector("input[type=date]").value = year + "-" + month + "-" + day;
+        })
+
+        function btnAction(e) {
+            let temp = e.srcElement.innerText.substr(0, e.srcElement.innerText.indexOf(" "));
+            let v = {};
+            getVals.forEach(function (item, index) {
+                let tempName = item.getAttribute("name");
+                let tempValue = tempName != "cookieExpire" ? item.value : item.valueAsDate;
+                v[tempName] = tempValue;
+            })
+            if (temp == "Set") {
+                setCookie(v.cookieName, v.cookieValue, v.cookieExpire);
+            }
+            else if (temp == "Get") {
+                getCookie(v.cookieName);
+            }
+            else if (temp == "Delete") {
+                eraseCookie(v.cookieName);
+            }
+            else if (temp == "All") {
+                listCookies();
+            }
+        }
+
+        function setCookie(name, value, exp) {
+            if (value.length &gt; 0) {
+                document.cookie = name + "=" + encodeURIComponent(value) + "; path=/; expires=" + exp.toUTCString();
+                output.textContent = "Cookie " + name + " Set";
+            }
+            else {
+                output.textContent = "Cookie needs a value";
+            }
+        }
+
+        function getCookie(name) {
+            let cookies = document.cookie.split(";");
+            output.textContent = "No Cookies Found";
+            cookies.forEach(function (item, index) {
+                item = item.trim();
+                let tempCookie = item.split("=");
+                if (tempCookie[0] === name) {
+                    output.textContent = "Found :" + tempCookie[0].trim() + " is " + decodeURIComponent(tempCookie[1]);
+                }
+            })
+        }
+
+        function eraseCookie(name) {
+            document.cookie = name + "=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+            output.textContent = "Cookie " + name + " Removed";
+        }
+
+        function listCookies() {
+            let cookies = document.cookie.split(";");
+            output.textContent = "";
+            cookies.forEach(function (item, index) {
+                item = item.trim();
+                let tempCookie = item.split("=");
+                if (tempCookie[0].length &gt; 0) {
+                    let div = document.createElement("div");
+                    div.setAttribute("class", "cookie");
+                    div.addEventListener("click", function () {
+                        eraseCookie(tempCookie[0]);
+                    })
+                    div.textContent = tempCookie[0].trim() + " " + decodeURIComponent(tempCookie[1]);
+                    output.appendChild(div);
+                }
+            })
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>

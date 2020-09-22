@@ -1,0 +1,65 @@
+<html>
+
+<head>
+    <title>JavaScript</title>
+    <style>
+        .output {
+            background-color: aquamarine;
+            height: 500px;
+            width: 500px;
+            border: 1px solid black;
+            overflow: hidden;
+            cursor: grab;
+        }
+        .box{
+            position: relative;
+            left: 50%;
+            top:50%;
+            width: 100px;
+            height:100px;
+            border-radius: 15px;
+            border: 1px solid black;
+}
+    </style>
+</head>
+
+<body>
+    <div class="message"> X: <span class="x">0</span> - Y: <span class="y">0</span> </div>
+    <div class="output"></div>
+    <script>
+        const output = document.querySelector(".output");
+        const messageOut = document.querySelectorAll(".message span");
+        output.addEventListener("mouseenter", function () {
+            output.style.backgroundColor = "blue";
+        })
+        output.addEventListener("mouseleave", function () {
+            output.style.backgroundColor = "white";
+        })
+        output.addEventListener("mousemove", function (e) {
+            messageOut[0].innerText = e.x;
+            messageOut[1].innerText = e.y;
+        })
+        document.addEventListener("DOMContentLoaded",function(){
+            let div = document.createElement("div");
+            div.classList.add("box");
+            output.appendChild(div);
+            div.x = div.offsetLeft;
+            div.y = div.offsetTop;
+            div.tempColor = "#" + Math.random().toString(16).substr(-6);
+            div.style.backgroundColor =  div.tempColor;
+            console.dir(div);
+            
+            
+            
+        })
+        
+        
+        
+        
+        
+        
+        
+    </script>
+</body>
+
+</html>

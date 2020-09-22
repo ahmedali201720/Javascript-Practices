@@ -1,0 +1,102 @@
+<pre class="prettyprint linenums">&lt;html&gt;
+
+&lt;head&gt;
+    &lt;title&gt;JavaScript&lt;/title&gt;
+    &lt;style&gt;
+        .modalWrapper {
+            display: none;
+        }
+        
+        .modalWrapper.showModal {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow-y: scroll;
+        }
+        
+        .modalBody .h2 {
+            background-color: black;
+            color: white;
+            font-size: 2em;
+        }
+        
+        .modalBody footer {
+            text-align: center;
+            font-size: 0.8em;
+            background-color: #222;
+            color: white;
+            padding: 5px;
+        }
+        
+        .modalBody {
+            width: 50%;
+            left: 25%;
+            top: 10%;
+            position: absolute;
+            background-color: aliceblue;
+        }
+        
+        .modalMain {
+            padding: 10px;
+        }
+        
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;button class="modal"&gt;modal popup&lt;/button&gt;
+    &lt;section class="modalWrapper"&gt;
+        &lt;div class="modalBody"&gt;
+            &lt;header&gt;
+                &lt;div class="h2"&gt;Title&lt;/div&gt;
+                &lt;button class="close"&gt;close&lt;/button&gt;
+            &lt;/header&gt;
+            &lt;div class="modalMain"&gt;
+                &lt;p&gt;default main content&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;footer&gt;Modal Footer&lt;/footer&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+    &lt;script&gt;
+        const btn = document.querySelectorAll(".modal");
+        const modalWrapper = document.querySelector(".modalWrapper");
+        const body = document.querySelector("body");
+        btn.forEach(function (button) {
+            makeClick(button);
+        })
+
+        function makeClick(el) {
+            el.addEventListener("click", function () {
+                modalWrapper.classList.add("showModal");
+                const closeButton = document.querySelector(".close");
+                closeButton.addEventListener("click",function(){
+                    return modalWrapper.classList.remove("showModal");
+                })
+                modalWrapper.addEventListener("click",function(){
+                    return modalWrapper.classList.remove("showModal");
+                })
+                body.addEventListener("keydown",function(e){
+                    console.log(e.keyCode);
+                    if(e.keyCode === 27){
+                       return modalWrapper.classList.remove("showModal"); 
+                    }
+                })
+                
+            })
+        }
+        
+   
+        
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>

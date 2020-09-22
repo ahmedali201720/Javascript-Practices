@@ -1,0 +1,56 @@
+<pre class="prettyprint linenums">&lt;html&gt;
+
+&lt;head&gt;
+    &lt;title&gt;JavaScript&lt;/title&gt;
+    &lt;style&gt;
+
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt; Source Text
+    &lt;br&gt;
+    &lt;textarea name="copyTxt" rows="3" cols="50"&gt;Hello World&lt;/textarea&gt;&lt;br&gt;
+    &lt;button class="moverBtn"&gt;Move Text&lt;/button&gt;
+    &lt;button class="copyBtn"&gt;Copy Text&lt;/button&gt;
+    &lt;br&gt;
+    &lt;textarea name="finalTxt" rows="3" cols="50"&gt;&lt;/textarea&gt;
+    &lt;div class="output"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        const copyTxt = document.querySelector("textarea[name=copyTxt]");
+        const finalTxt = document.querySelector("textarea[name=finalTxt]");
+        const moverBtn = document.querySelector(".moverBtn");
+        const copyBtn = document.querySelector(".copyBtn");
+        const output = document.querySelector(".output");
+        moverBtn.addEventListener("click", moveText);
+        copyBtn.addEventListener("click", copyText);
+        finalTxt.addEventListener("click", selAll);
+        copyTxt.addEventListener("click", selAll);
+
+        function selAll() {
+            this.select();
+        }
+
+        function copyText() {
+            let temp = copyTxt.value;
+            copytoClipBoard(temp);
+        }
+
+        function copytoClipBoard(str) {
+            const textarea = document.createElement("textarea");
+            textarea.value = str;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            output.innerHTML = "&lt;h3&gt;Copied content&lt;/h3&gt;" + textarea.value;
+            console.log(textarea);
+        }
+
+        function moveText() {
+            let temp = copyTxt.value;
+            finalTxt.value = temp;
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>

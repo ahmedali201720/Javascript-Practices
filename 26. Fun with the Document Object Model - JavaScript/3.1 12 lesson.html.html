@@ -1,0 +1,51 @@
+<html><head><title>JavaScript</title><style>
+    .copyMe{
+        display: inline-block;
+        padding:15px;
+        border:1px solid black;
+        position: absolute;
+        width:60px;
+        text-align: center;
+        height: 40px;
+        cursor: pointer;
+    
+    }
+    
+    .newb{
+        color:red;
+    }
+</style></head>
+<body>
+    <div class="copyMe">Hello</div>
+    <div class="copyMe">Hello World</div>
+    <div class="copyMe">JavaScript <br> Course</div>
+    <div class="copyMe">Wow</div>
+    <div class="copyMe">More random Content</div>
+<script>
+      const rep = document.querySelectorAll(".copyMe");
+      let holder = {};
+      rep.forEach(function(ele,ind){
+        ele.addEventListener("click",function(e){
+            console.log(ind);
+            holder.obj = ele.cloneNode(true);
+            holder.obj.style.cursor = "move";
+            holder.obj.classList.add("newb");
+            holder.obj.style.backgroundColor = "green";
+            holder.obj.style.left = ele.offsetLeft  + "px";
+            holder.obj.style.top = ele.offsetTop + 200 + "px";
+            
+            document.body.appendChild(holder.obj);
+            
+            console.log(holder.obj);
+            
+            
+            
+        })
+        ele.style.left = ind *100 + "px";
+      })
+      
+      
+      
+      
+ </script>
+</body></html>

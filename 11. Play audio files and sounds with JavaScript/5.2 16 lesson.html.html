@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <title>JavaScript</title>
+    <style>
+        .animal {
+            width: 100px;
+            height: 50px;
+            color: black;
+            text-align: center;
+            border: 1px solid black;
+            display: inline-block;
+            margin: 15px;
+        }
+        .active{
+            border: 1px solid red;
+            color:red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="animal lion">Lion</div>
+    <div class="animal cougar">Cougar</div>
+    <div class="animal bark">Bark</div>
+    <script>
+        const animals = document.querySelectorAll(".animal");
+        console.log(animals);
+        for (let i = 0; i < animals.length; i++) {
+            animals[i].addEventListener("click", function () {
+                let animal = this.innerHTML;
+                let lowerAnimal = animal.toLowerCase();
+                //makeSound(lowerAnimal);
+                addStyle(lowerAnimal);
+            })
+        }
+
+
+        function addStyle(name){
+            let activeEle = document.querySelector("."+name);
+            console.log(activeEle);
+            activeEle.classList.add("active");
+            setTimeout(function(){
+                activeEle.classList.remove("active");
+            },200)
+        }   
+
+        function makeSound(name) {
+            console.log(name);
+            switch (name) {
+            case "lion":
+                let sound1 = new Audio("sound/lion.mp3");
+                sound1.play();
+                break;
+            case "cougar":
+                let sound2 = new Audio("sound/cougar.mp3");
+                sound2.play();
+                break;
+            case "bark":
+                let sound3 = new Audio("sound/bark.mp3");
+                sound3.play();
+                break;
+            }
+        }
+    </script>
+</body>
+
+</html>

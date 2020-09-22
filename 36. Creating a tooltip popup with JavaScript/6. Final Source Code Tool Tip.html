@@ -1,0 +1,53 @@
+<pre class="prettyprint linenums">&lt;html&gt;
+
+&lt;head&gt;
+    &lt;title&gt;JavaScript&lt;/title&gt;
+    &lt;style&gt;
+        .tooltip {
+            color: blue;
+            background-color: #ddd;
+        }
+        
+        .output {
+            display: none;
+            position: absolute;
+            border: 1px solid red;
+            background-color: black;
+            color: white;
+            padding: 5px;
+            top: 100px;
+            left: 50px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;p&gt;Hello World welcome to &lt;span class="tooltip" data-toolContent="Tool Tip Content"&gt;JavaScript &lt;/span&gt;Course&lt;/p&gt;
+    &lt;div&gt;Just another tool tip with some random content like Hello World all part of the &lt;span class="tooltip" data-toolContent="JavaScript"&gt;JavaScript &lt;/span&gt;Course&lt;/div&gt;
+    &lt;div class="output"&gt;&lt;/div&gt;
+    &lt;script&gt;
+        const tooltips = document.querySelectorAll(".tooltip");
+        const output = document.querySelector(".output");
+        let myInterval;
+        for (let i = 0; i &lt; tooltips.length; i++) {
+            tooltips[i].addEventListener("mouseover", function (e) {
+                let holder = this.getAttribute("data-toolContent");
+                clearInterval(myInterval);
+                console.log(e.clientX);
+                console.log(e.clientY);
+                output.style.display = "block";
+                output.style.top = e.clientY + 5 + "px";
+                output.style.left = e.clientX + 5 + "px";
+                output.innerHTML = holder;
+                myInterval = setInterval(function () {
+                    output.style.display = "none";
+                }, 3000);
+            })
+            tooltips[i].addEventListener("mouseout", function (e) {
+                output.style.display = "none";
+            })
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>

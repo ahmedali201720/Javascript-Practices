@@ -1,0 +1,36 @@
+<html><head><title>JavaScript</title><style>
+</style></head>
+<body>
+    <div class="copyMe">Hello</div>
+    <div class="copyMe">Hello World</div>
+    <div class="copyMe">JavaScript <br> Course</div>
+    <div class="copyMe">Wow</div>
+    <div class="copyMe">More random Content</div>
+    
+    
+    
+    
+    
+    
+    
+<script>
+      const rep = document.querySelectorAll(".copyMe");
+      console.log(rep);
+      
+      rep.forEach(function(ele,ind){
+        console.log(ele);
+        console.log(ind);
+        ele.addEventListener("click",function(e){
+            console.log(ind);
+            
+        })
+        
+        
+        
+      })
+      
+      
+      
+      
+ </script>
+</body></html>

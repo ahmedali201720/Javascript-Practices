@@ -1,0 +1,122 @@
+<pre class="prettyprint linenums">&lt;html&gt;
+
+&lt;head&gt;
+    &lt;title&gt;JavaScript&lt;/title&gt;
+    &lt;style&gt;
+        .copyMe {
+            display: inline-block;
+            padding: 15px;
+            border: 1px solid black;
+            position: absolute;
+            width: 60px;
+            text-align: center;
+            height: 40px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .newb {
+            color: red;
+        }
+        
+        #garbage {
+            position: absolute;
+            height: 100px;
+            width: 100px;
+            background-color: black;
+            left: 500px;
+            top: 300px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div id="garbage"&gt;&lt;/div&gt;
+    &lt;div class="copyMe"&gt;Hello&lt;img src="https://via.placeholder.com/100x50/0f9"&gt;&lt;/div&gt;
+    &lt;div class="copyMe"&gt;
+        &lt;h1&gt;Hello &lt;/h1&gt;World&lt;/div&gt;
+    &lt;div class="copyMe"&gt;JavaScript
+        &lt;br&gt; Course&lt;/div&gt;
+    &lt;div class="copyMe"&gt;Wow&lt;/div&gt;
+    &lt;div class="copyMe"&gt;Wow #2&lt;/div&gt;
+    &lt;div class="copyMe"&gt;More random Content&lt;/div&gt;
+    &lt;script&gt;
+        const garbage = document.getElementById("garbage");
+        const rep = document.querySelectorAll(".copyMe");
+        let holder = {};
+        rep.forEach(function (ele, ind) {
+            ele.addEventListener("click", function (e) {
+                holder.obj = ele.cloneNode(true);
+                holder.obj.style.cursor = "move";
+                holder.obj.classList.add("newb");
+                holder.obj.style.backgroundColor = ranColor();
+                holder.obj.style.left = ele.offsetLeft + "px";
+                holder.obj.style.top = ele.offsetTop + 200 + "px";
+                holder.obj.startX = ele.offsetLeft;
+                holder.obj.startY = ele.offsetTop;
+                holder.obj.moves = Math.floor(Math.random() * 25);
+                holder.obj.int = setInterval(mover, 25);
+
+                function mover() {
+                    if (holder.obj.moves &lt;= 0) {
+                        clearInterval(holder.obj.int);
+                    }
+                    else {
+                        holder.obj.moves--;
+                        holder.obj.startY += 10;
+                        holder.obj.startX += 1;
+                        holder.obj.style.top = holder.obj.startY + "px";
+                        holder.obj.style.left = holder.obj.startX + "px";
+                    }
+                }
+                document.body.appendChild(holder.obj);
+                drager(holder.obj);
+            })
+            ele.style.left = ind * 100 + "px";
+        })
+
+        function ranColor() {
+            function c() {
+                let hex = Math.floor(Math.random() * 256).toString(16);
+                hex = ("0" + String(hex)).substr(-2);
+                return hex;
+            }
+            return "#" + c() + c() + c();
+        }
+
+        function drager(el) {
+            let pos = {};
+            el.onmousedown = dragMouse;
+
+            function dragMouse(e) {
+                pos.nx = e.clientX;
+                pos.ny = e.clientY;
+                document.onmouseup = function () {
+                    document.onmouseup = null;
+                    document.onmousemove = null;
+                }
+                document.onmousemove = function (e) {
+                    pos.ox = pos.nx - e.clientX;
+                    pos.oy = pos.ny - e.clientY;
+                    pos.nx = e.clientX;
+                    pos.ny = e.clientY;
+                    if (isCollide(el)) {
+                        el.onmousedown = null;
+                        el.parentElement.removeChild(el);
+                    }
+                    el.style.top = (el.offsetTop - pos.oy) + "px";
+                    el.style.left = (el.offsetLeft - pos.ox) + "px";
+                }
+            }
+        }
+
+        function isCollide(a) {
+            let aRect = a.getBoundingClientRect();
+            let bRect = garbage.getBoundingClientRect();
+            return !(
+                (aRect.bottom &lt; bRect.top) || (aRect.top &gt; bRect.bottom) || (aRect.right &lt; bRect.left) || (aRect.left &gt; bRect.right))
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>

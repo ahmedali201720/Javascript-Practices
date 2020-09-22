@@ -1,0 +1,61 @@
+<pre class="prettyprint linenums">&lt;html&gt;
+
+&lt;head&gt;
+    &lt;title&gt;JavaScript&lt;/title&gt;
+    &lt;style&gt;
+
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt; Image Size:
+    &lt;select&gt;
+        &lt;option value="150x50"&gt;Small&lt;/option&gt;
+        &lt;option value="350x150"&gt;Medium&lt;/option&gt;
+        &lt;option value="650x350"&gt;Large&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;br&gt; Text on Image:
+    &lt;input type="text"&gt;
+    &lt;br&gt; Color of Background:
+    &lt;input type="color" id="bck" value="#dddddd"&gt;
+    &lt;br&gt; Color of Text:
+    &lt;input type="color" id="txt" value="#ff0000"&gt;
+    &lt;br&gt; &lt;img src=""&gt;&lt;br&gt;
+    &lt;textarea rows="3" cols="50"&gt;&lt;/textarea&gt;
+    &lt;script&gt;
+        const sel = document.querySelector("select");
+        const inpAll = document.querySelectorAll("input");
+        const myImg = document.querySelector("img");
+        const txtArea = document.querySelector("textarea");
+        sel.addEventListener("change", build);
+        inpAll.forEach(function (item) {
+            item.addEventListener("change", build);
+        })
+        function clean(str){
+            return str.replace("#","");
+        }
+        function spacers(str){
+            return str.split(" ").join("+");
+        }
+
+        function build(e) {
+            let i = {};
+            i.size = sel.value;
+            i.text = spacers(inpAll[0].value);
+            i.bgClr =clean(inpAll[1].value);
+            i.txtClr =clean(inpAll[2].value);
+            i.path = "http://via.placeholder.com/"+i.size+"/"+i.bgClr+"/"+i.txtClr+"?text="+i.text;
+            myImg.src = i.path;
+            txtArea.value = i.path;
+            txtArea.select();
+            txtArea.focus();
+            document.execCommand("copy");
+            console.log(i);
+        
+
+        
+        
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>

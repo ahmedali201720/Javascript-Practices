@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <style>
+        .hide {
+            display: none;
+        }
+        
+        .error {
+            color: red;
+            font-size: 0.8em;
+            font-family: sans-serif;
+            font-style: italic;
+        }
+        
+        input {
+            border-color: #ddd;
+            width: 400px;
+            display: block;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+
+<body>
+    <form name="myform"> Email :
+        <input type="text" name="email"> <span class="error hide"></span>
+        <br> Password :
+        <input type="text" name="password"> <span class="error hide"></span>
+        <br> User Name :
+        <input type="text" name="userName"> <span class="error hide"></span>
+        <br>
+        <input type="submit" value="Sign Up"> </form>
+    <script>
+        const myForm = document.querySelector("form");
+        const inputs = document.querySelectorAll("input");
+        const errors = document.querySelectorAll(".error");
+        const required = ["email", "userName"];
+        myForm.addEventListener("submit", validation);
+
+        function validation(e) {
+            let data = {};
+            e.preventDefault();
+            inputs.forEach(function (el) {
+                let tempName = el.getAttribute("name");
+                console.log(tempName);
+                if (tempName != null) {
+                    el.style.borderColor = "#ddd";
+                    if (el.value.length == 0 && required.includes(tempName)) {
+                        addError(el, "Required Field", tempName);
+                    }
+                    data[tempName] = el.value;
+                }
+            })
+            console.log(data);
+        }
+
+        function addError(el, mes, fieldName) {
+            let temp = el.nextElementSibling;
+            temp.classList.remove("hide");
+            temp.textContent = fieldName.toUpperCase() + " " + mes;
+            el.style.borderColor = "red";
+            el.focus();
+        }
+    </script>
+</body>
+
+</html>

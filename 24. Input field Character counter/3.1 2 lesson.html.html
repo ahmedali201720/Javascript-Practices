@@ -1,0 +1,42 @@
+<html><head><title>JavaScript</title><style> 
+    textarea {
+        width: 400px;
+        height:50px;
+    }
+</style>
+</head>
+
+<body>
+<div>
+    <textarea class="txtLimits"></textarea>
+    <div class="output"></div>
+</div>
+
+<script>
+    const output = document.querySelector(".output");
+    const txt = document.querySelector("textarea");
+    /*
+    txt.addEventListener("change",textCounter);
+    txt.addEventListener("keyup",textCounter);
+    txt.addEventListener("keydown",textCounter);
+    */
+    ["keyup","keydown","change"].forEach(function(e){
+        txt.addEventListener(e,textCounter);
+    })
+    
+    
+    
+    function textCounter(e){
+        console.log(e);
+    }
+    
+  
+  
+  
+  
+  
+  
+  
+</script>
+</body>
+</html>

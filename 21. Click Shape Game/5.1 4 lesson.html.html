@@ -1,0 +1,46 @@
+<html>
+
+<head>
+    <title>JavaScript</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <button type="button">Start</button>
+    <div class="message"></div>
+    <div class="gameArea"></div>
+    <script>
+    let inPlay = false;
+    let playArea = {};
+    let start;
+    
+    const message = document.querySelector(".message");
+    messager("Click start button");
+    const button = document.querySelector("button");
+    const gameArea = document.querySelector(".gameArea");
+    button.addEventListener("click",function(){
+        if(!inPlay){
+            inPlay = true;
+            button.style.display = "none";
+            messager("Click the circles as quickly as you see them");
+            showBox();
+        }
+    })
+    
+    function showBox(){
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime
+        start = new Date().getTime();
+        console.log(start);
+    }
+    
+    function messager(mes){
+        message.innerHTML = mes;
+    }
+    
+    
+    
+    </script>
+</body>
+
+</html>

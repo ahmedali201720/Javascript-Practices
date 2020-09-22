@@ -1,0 +1,32 @@
+<html>
+
+<head>
+    <title>JavaScript</title>
+    <style>
+
+    </style>
+</head>
+
+<body> Paste Text :
+    <br>
+    <textarea name="txtarea" rows="12" cols="50">heloo email world real@email.com asddsa jldkjjlkj jkljl sdajlkdasjdsa kljadsj dklja real1@email.com real.test@email.com helllo hkjdshsdkjh jkh real-time@email.com </textarea>
+    <br>
+    <button type="button">Get Emails</button>
+    <br> Emails in text:
+    <br>
+    <textarea name="output" rows="12" cols="50"></textarea>
+    <script>
+        const rawTxt = document.querySelector("textarea[name=txtarea]");
+        const finTxt = document.querySelector("textarea[name=output]");
+        const btn = document.querySelector("button");
+        btn.addEventListener("click", function () {
+            let temp = rawTxt.value;
+            let exp = /([A-Za-z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
+            //https://regexr.com/
+            let emailData = temp.match(exp);
+            console.log(emailData);
+        })
+    </script>
+</body>
+
+</html>

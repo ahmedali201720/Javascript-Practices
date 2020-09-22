@@ -1,0 +1,14 @@
+<p>Please note that there have been some changes and it is advised that you use key instead of keyCode.</p>
+<p>To get the key press event key value use the key which is <strong>ArrowLeft, ArrowUp, ArrowRight, ArrowDown</strong></p>
+<p><strong>Enter = 13</strong></p>
+<p><strong>ArrowLeft = 37</strong></p>
+<p><strong>ArrowUp = 38</strong></p>
+<p><strong>ArrowRight = 39</strong></p>
+<p><strong>ArrowDown = 40</strong></p>
+<p>The below code will track keypress and show the key vs the keyCode.</p>
+<pre class="prettyprint linenums"> &lt;script&gt;
+        window.addEventListener("keydown", function (e) {
+            let key = e.key;
+            console.log(e.key + ' = ' + e.keyCode);
+        })
+    &lt;/script&gt;</pre>

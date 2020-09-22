@@ -1,0 +1,110 @@
+<html>
+
+<head>
+    <title>JavaScript</title>
+    <style>
+        .copyMe {
+            display: inline-block;
+            padding: 15px;
+            border: 1px solid black;
+            position: absolute;
+            width: 60px;
+            text-align: center;
+            height: 40px;
+            cursor: pointer;
+        }
+        
+        .newb {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="copyMe">Hello</div>
+    <div class="copyMe">Hello World</div>
+    <div class="copyMe">JavaScript
+        <br> Course</div>
+    <div class="copyMe">Wow</div>
+    <div class="copyMe">More random Content</div>
+    <script>
+        const rep = document.querySelectorAll(".copyMe");
+        let holder = {};
+        rep.forEach(function (ele, ind) {
+            ele.addEventListener("click", function (e) {
+                console.log(ind);
+                holder.obj = ele.cloneNode(true);
+                holder.obj.style.cursor = "move";
+                holder.obj.classList.add("newb");
+                holder.obj.style.backgroundColor = "green";
+                holder.obj.style.left = ele.offsetLeft + "px";
+                holder.obj.style.top = ele.offsetTop + 200 + "px";
+                holder.obj.startX = ele.offsetLeft;
+                holder.obj.startY = ele.offsetTop;
+                holder.obj.moves = Math.floor(Math.random() * 25);
+                holder.obj.int = setInterval(mover, 25);
+
+                function mover() {
+                    if (holder.obj.moves <= 0) {
+                        clearInterval(holder.obj.int);
+                    }
+                    else {
+                        holder.obj.moves--;
+                        holder.obj.startY += 10;
+                        holder.obj.startX += 1;
+                        holder.obj.style.top = holder.obj.startY + "px";
+                        holder.obj.style.left = holder.obj.startX + "px";
+                    }
+                }
+                document.body.appendChild(holder.obj);
+                console.log(holder.obj);
+                drager(holder.obj);
+            })
+            ele.style.left = ind * 100 + "px";
+        })
+        
+        
+        function drager(el){
+        let pos = {};
+        el.onmousedown = dragMouse;
+        
+        function dragMouse(e){
+            pos.nx = e.clientX;
+            pos.ny = e.clientY;
+            console.log(pos.nx, pos.ny);
+            document.onmouseup = function(){
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+            document.onmousemove = function(e){
+                pos.ox = pos.nx - e.clientX; //amount to move horizontal
+                pos.oy = pos.ny - e.clientY; //amount to move vertical
+                pos.nx = e.clientX;
+                pos.ny = e.clientY;
+                el.style.top = (el.offsetTop - pos.oy) + "px";
+                el.style.left = (el.offsetLeft - pos.ox) + "px";
+                
+            }
+        
+        }
+        
+        
+        
+        
+        
+        
+}
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </script>
+</body>
+
+</html>

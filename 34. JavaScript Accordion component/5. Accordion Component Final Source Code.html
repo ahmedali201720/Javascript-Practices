@@ -1,0 +1,69 @@
+<pre class="prettyprint linenums">&lt;html&gt;&lt;head&gt;&lt;title&gt;JavaScript&lt;/title&gt;
+&lt;style&gt;
+.content {
+margin-top: 10px;
+    display: none;
+    padding:20px;
+    font-size:0.8em;
+    border: 1px solid #ddd;
+}
+.main{
+margin-top: 10px;
+    font-size:1.5em;
+    background-color: #ddd;
+    cursor: pointer;
+    border-radius: 15px;
+    padding: 5px;
+}
+.active{
+    display: block;
+}
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;div class="main"&gt;1 Lorem ipsum dolor sit amet consectetuer adipiscing 
+elit&lt;/div&gt;
+&lt;div class="content"&gt;22 dolor sit amet, consectetuer adipiscing 
+elit. Aenean commodo ligula eget dolor. Aenean massa. 
+Cum sociis natoque penatibus et magnis dis parturient 
+montes, nascetur ridiculus mus. Donec quam felis, 
+ultricies nec, pellentesque eu, pretium quis, sem.&lt;/div&gt;
+&lt;div class="main"&gt;2 Lorem ipsum dolor sit amet consectetuer adipiscing 
+elit&lt;/div&gt;
+&lt;div class="content"&gt;333 olor sit amet, consectetuer adipiscing 
+elit. Aenean commodo ligula eget dolor. Aenean massa. 
+Cum sociis natoque penatibus et magnis dis parturient 
+montes, nascetur ridiculus mus. Donec quam felis, 
+ultricies nec, pellentesque eu, pretium quis, sem.&lt;/div&gt;
+&lt;div class="main"&gt;Lorem ipsum dolor sit amet consectetuer adipiscing 
+elit&lt;/div&gt;
+&lt;div class="content"&gt;3 444 dolor sit amet, consectetuer adipiscing 
+elit. Aenean commodo ligula eget dolor. Aenean massa. 
+Cum sociis natoque penatibus et magnis dis parturient 
+montes, nascetur ridiculus mus. Donec quam felis, 
+ultricies nec, pellentesque eu, pretium quis, sem.&lt;/div&gt;
+&lt;div class="main"&gt;4 Lorem ipsum dolor sit amet consectetuer adipiscing 
+elit&lt;/div&gt;
+&lt;div class="content"&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing 
+elit. Aenean commodo ligula eget dolor. Aenean massa. 
+Cum sociis natoque penatibus et magnis dis parturient 
+montes, nascetur ridiculus mus. Donec quam felis, 
+ultricies nec, pellentesque eu, pretium quis, sem.&lt;/div&gt;
+&lt;script&gt;
+const mainEle = document.querySelectorAll(".main");
+const conEle = document.querySelectorAll(".content");
+for(let x=0;x&lt;mainEle.length;x++){
+    mainEle[x].addEventListener("click",function(){
+        console.log(mainEle[x].nextElementSibling);
+        clearActive();
+        mainEle[x].nextElementSibling.classList.add("active");
+    })
+}
+
+function clearActive(){
+    for(let x=0;x&lt;conEle.length;x++){
+        conEle[x].classList.remove("active");
+    }
+}
+
+&lt;/script&gt;
+&lt;/body&gt;&lt;/html&gt;</pre>

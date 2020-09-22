@@ -1,0 +1,40 @@
+<pre class="prettyprint linenums">&lt;html&gt;
+
+&lt;head&gt;
+    &lt;title&gt;JavaScript&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt; &lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div class="message"&gt;Select either Heads or Tails&lt;/div&gt;
+    &lt;button type="button"&gt;Heads&lt;/button&gt;
+    &lt;button type="button"&gt;Tails&lt;/button&gt;
+    &lt;script&gt;
+        const coinArray = ["Heads", "Tails"];
+        let score = [0, 0];
+        const message = document.querySelector(".message");
+        const buttons = document.querySelectorAll("button");
+
+        for (let i = 0; i &lt; buttons.length; i++) {
+            buttons[i].addEventListener("click", tossCoin);
+        }
+
+        function tossCoin(e) {
+            let playerGuess = e.target.innerText;
+            let computerToss = Math.floor(Math.random() * coinArray.length);
+            let computerGuess = coinArray[computerToss];
+            message.innerHTML = "Computer Selected " + computerGuess + "&lt;br&gt;";
+            let output;
+            if (playerGuess === computerGuess) {
+                output = "Player Wins";
+                score[0]++;
+            }
+            else {
+                output = "Computer Wins";
+                score[1]++;
+            }
+            message.innerHTML += output + "&lt;br&gt;Player " + score[0] + " Computer " + score[1];
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>
